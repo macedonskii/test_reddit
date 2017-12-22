@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">RedditTest</string>
+    <plurals name="time.seconds">
+        <item quantity="one">A moment ago</item>
+        <item quantity="other">Less than minute ago</item>
+    </plurals>
+    <plurals name="time.minutes">
+        <item quantity="one">A minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time.hours">
+        <item quantity="one">A hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="time.days">
+        <item quantity="one">One day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+
+    <string name="error.data.doesnt.load">Please check your internet connection, and repeat later!</string>
+    <string name="app.header">reddit</string>
+    <string name="post.first.header">By %s • %s • r/%s</string>
+</resources>

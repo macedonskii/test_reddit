@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/vgRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/tvTimeAndSubbredit"
+                style="@style/AppTheme.TextView.Content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/ivContent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10 hrs ago i.redd"
+                android:lines="1"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                app:layout_constraintBottom_toBottomOf="@+id/ivContent"
+                app:layout_constraintEnd_toStartOf="@+id/ivContent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTimeAndSubbredit"
+                tools:text="Some very long header with different information, more than 2 lines, and 3 line too! Different information, Different information, Different information, Different information, asdasd asdasd asdasdas  asdasd asdasd asdasd aasdasdas "/>
+
+            <ImageView
+                android:id="@+id/ivContent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTimeAndSubbredit"/>
+
+            <TextView
+                android:id="@+id/tvCommentsCount"
+                style="@style/AppTheme.TextView.Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivContent"
+                tools:text="482 comments"
+                android:drawableLeft="@drawable/ic_message"
+                android:drawablePadding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tvScore"
+                style="@style/AppTheme.TextView.Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivContent"
+                tools:text="12583"
+                android:drawableLeft="@drawable/ic_arrow_up"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:drawablePadding="4dp"
+                />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>
