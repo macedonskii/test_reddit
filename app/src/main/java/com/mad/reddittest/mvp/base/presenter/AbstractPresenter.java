@@ -14,8 +14,8 @@ import io.reactivex.disposables.CompositeDisposable;
 public abstract class AbstractPresenter implements Presenter {
 
     @Inject
-    protected Model mModel;
-    protected CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    protected Model model;
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public AbstractPresenter() {
         App.getAppGraph().inject(this);
@@ -23,6 +23,6 @@ public abstract class AbstractPresenter implements Presenter {
 
     @Override
     public void onDestroy() {
-        mCompositeDisposable.dispose();
+        compositeDisposable.dispose();
     }
 }

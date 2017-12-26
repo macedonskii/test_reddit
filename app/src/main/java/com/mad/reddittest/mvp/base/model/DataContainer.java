@@ -7,35 +7,35 @@ import android.support.annotation.NonNull;
  */
 
 public class DataContainer<T> {
-    private T mData;
-    private int mMessageId;
-    private boolean mSuccessful;
-    private boolean mCached;
+    private T data;
+    private int messageId;
+    private boolean successful;
+    private boolean cached;
 
-    public DataContainer(@NonNull T data, boolean cached) {
-        mData = data;
-        mSuccessful = true;
-        mCached = cached;
+    public DataContainer(@NonNull T data) {
+        this.data = data;
+        successful = true;
+        this.cached = cached;
     }
 
     public DataContainer(int messageId) {
-        mMessageId = messageId;
-        mSuccessful = false;
+        this.messageId = messageId;
+        successful = false;
     }
 
     public T getData() {
-        return mData;
+        return data;
     }
 
     public boolean isCached() {
-        return mCached;
+        return cached;
     }
 
     public int getMessageId() {
-        return mMessageId;
+        return messageId;
     }
 
     public boolean isSuccessful() {
-        return mSuccessful;
+        return successful;
     }
 }

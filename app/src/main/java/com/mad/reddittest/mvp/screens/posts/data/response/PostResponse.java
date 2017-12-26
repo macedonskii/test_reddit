@@ -13,14 +13,6 @@ public class PostResponse {
     @Expose
     private ResponseData data;
 
-    public String getKind() {
-        return kind;
-    }
-
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
-
     public ResponseData getData() {
         return data;
     }

@@ -21,68 +21,68 @@ import java.util.List;
 
 public class PostsActivity extends AbstractActivity implements Contract.PostsView, PaginationController.ItemsProvider<Post> {
 
-    private static final String TAG_SCROLL = "SCROLL_POSITION";
-    private Contract.PostsPresenter mPresenter = new PostsPresenter(this);
-    private ActivityPostsBinding mBinding;
-    private PostsAdapter mAdapter;
-    private PaginationController mPaginationController;
-    private LinearLayoutManager mLayoutManager;
-    private Parcelable mParcelable;
+    protected static final String TAG_SCROLL = "SCROLL_POSITION";
+    private Contract.PostsPresenter presenter = new PostsPresenter(this);
+    private ActivityPostsBinding binding;
+    private PostsAdapter adapter;
+    private PaginationController paginationController;
+    private LinearLayoutManager layoutManager;
+    private Parcelable parcelable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_posts);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_posts);
 
-        mLayoutManager = new LinearLayoutManager(null);
-        mBinding.rvContent.setLayoutManager(mLayoutManager);
-        mAdapter = new PostsAdapter(mPresenter);
-        mBinding.rvContent.setAdapter(mAdapter);
+        layoutManager = new LinearLayoutManager(null);
+        binding.rvContent.setLayoutManager(layoutManager);
+        adapter = new PostsAdapter(presenter);
+        binding.rvContent.setAdapter(adapter);
 
-        mPaginationController = new PaginationController<>(this, mPresenter);
-        mBinding.rvContent.addOnScrollListener(mPaginationController);
+        paginationController = new PaginationController<>(this, presenter);
+        binding.rvContent.addOnScrollListener(paginationController);
         if (savedInstanceState != null && savedInstanceState.containsKey(TAG_SCROLL)) {
-            mParcelable = savedInstanceState.getParcelable(TAG_SCROLL);
+            parcelable = savedInstanceState.getParcelable(TAG_SCROLL);
         }
-        mPresenter.onCreate(savedInstanceState);
-        mBinding.btnFab.setOnClickListener(v -> {
-            mBinding.btnFab.setVisibility(View.GONE);
-            mPresenter.onClickRepeat();
+        presenter.onCreate(savedInstanceState);
+        binding.btnFab.setOnClickListener(v -> {
+            binding.btnFab.setVisibility(View.GONE);
+            presenter.onClickRepeat();
         });
     }
 
     @Override
     public Presenter getPresenter() {
-        return mPresenter;
+        return presenter;
     }
 
     @Override
     public void setPosts(List<Post> posts) {
-        mAdapter.setItems(posts);
-        if (mParcelable == null) {
+        adapter.setItems(posts);
+        if (parcelable == null) {
             return;
         }
-        mLayoutManager.onRestoreInstanceState(mParcelable);
+        layoutManager.onRestoreInstanceState(parcelable);
     }
 
     @Override
     public void addPost(List<Post> data) {
-        mAdapter.addItems(data);
+        adapter.addItems(data);
     }
 
     @Override
     public void showRepeatButton() {
-        mBinding.btnFab.setVisibility(View.VISIBLE);
+        binding.btnFab.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        mBinding.progressBar.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
-        mBinding.progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -91,34 +91,34 @@ public class PostsActivity extends AbstractActivity implements Contract.PostsVie
                 .setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 ;
         CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(this, Uri.parse(post.getUrl()));
+        customTabsIntent.launchUrl(this, Uri.parse(post.getPostUrl()));
 
     }
 
     @Override
     public void unblockPaginationController() {
-        mPaginationController.unblockLoadingState();
+        paginationController.unblockLoadingState();
     }
 
     @Override
     public int getItemsCount() {
-        return mAdapter.getItemCount();
+        return adapter.getItemCount();
     }
 
     @Nullable
     @Override
     public Post getItemByPosition(int position) {
-        return mAdapter.getItem(position);
+        return adapter.getItem(position);
     }
 
     @Override
     public int getLastVisibleItem() {
-        return mLayoutManager.findLastVisibleItemPosition();
+        return layoutManager.findLastVisibleItemPosition();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(TAG_SCROLL, mLayoutManager.onSaveInstanceState());
+        outState.putParcelable(TAG_SCROLL, layoutManager.onSaveInstanceState());
         super.onSaveInstanceState(outState);
     }
 }

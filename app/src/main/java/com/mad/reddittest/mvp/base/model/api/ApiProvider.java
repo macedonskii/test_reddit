@@ -9,18 +9,17 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiProvider {
 
-    private String mHost;
-    private ApiInterface mApiInterface;
+    private String host;
+    private ApiInterface apiInterface;
 
     public ApiProvider(String host) {
-        mHost = host;
+        this.host = host;
         createInterface();
     }
 
@@ -39,14 +38,14 @@ public class ApiProvider {
                 .build());
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(mHost)
+                .baseUrl(host)
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build());
-        mApiInterface = builder.build().create(ApiInterface.class);
+        apiInterface = builder.build().create(ApiInterface.class);
     }
 
     public ApiInterface getApiInterface() {
-        return mApiInterface;
+        return apiInterface;
     }
 }

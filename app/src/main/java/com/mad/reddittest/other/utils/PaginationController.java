@@ -8,31 +8,31 @@ import android.util.Log;
 
 public class PaginationController<T> extends RecyclerView.OnScrollListener {
 
-    private PaginationListener<T> mPaginationListener;
-    private ItemsProvider<T> mItemsProvider;
-    private boolean mLoading = false;
+    private PaginationListener<T> paginationListener;
+    private ItemsProvider<T> itemsProvider;
+    private boolean loading = false;
 
     public PaginationController(@NonNull ItemsProvider<T> itemsProvider, PaginationListener<T> paginationListener) {
-        mPaginationListener = paginationListener;
-        mItemsProvider = itemsProvider;
+        this.paginationListener = paginationListener;
+        this.itemsProvider = itemsProvider;
     }
 
     //    @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-        if (mPaginationListener == null || mLoading || mItemsProvider.getItemsCount() == 0) {
+        if (paginationListener == null || loading || itemsProvider.getItemsCount() == 0) {
             return;
         }
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-            if (mItemsProvider.getLastVisibleItem() == mItemsProvider.getItemsCount() - 1) {
-                Log.d("TAG", "scroll item position = " + mItemsProvider.getLastVisibleItem());
-                mPaginationListener.whenPositionAchieved(mItemsProvider.getItemByPosition(mItemsProvider.getLastVisibleItem()));
-                mLoading = true;
+            if (itemsProvider.getLastVisibleItem() == itemsProvider.getItemsCount() - 1) {
+                Log.d("TAG", "scroll item position = " + itemsProvider.getLastVisibleItem());
+                paginationListener.whenPositionAchieved(itemsProvider.getItemByPosition(itemsProvider.getLastVisibleItem()));
+                loading = true;
             }
         }
     }
 
     public void unblockLoadingState() {
-        mLoading = false;
+        loading = false;
     }
 
     public interface PaginationListener<T> {

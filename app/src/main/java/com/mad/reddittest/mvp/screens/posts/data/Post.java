@@ -6,64 +6,64 @@ import io.realm.RealmObject;
 
 public class Post extends RealmObject {
 
-    private String mTitle;
-    private String mAuthor;
-    private String mSubredit;
-    private long mCreationDate;
-    private String mImage;
-    private long mScore;
-    private long mCommentsCount;
-    private String mId;
-    private String mUrl;
+    private String id;
+    private String postUrl;
+    private String title;
+    private String author;
+    private String subredit;
+    private long creationDate;
+    private String image;
+    private long score;
+    private long commentsCount;
 
     public Post() {
     }
 
     public Post(String id, String title, String author, String subredit, @Nullable String image, long score, long creationDate, long commentsCount, String url) {
-        mId = id;
-        mTitle = title;
-        mAuthor = author;
-        mSubredit = subredit;
-        mCreationDate = creationDate;
-        mImage = image;
-        mScore = score;
-        mCommentsCount = commentsCount;
-        mUrl = url;
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.subredit = subredit;
+        this.creationDate = creationDate;
+        this.image = image;
+        this.score = score;
+        this.commentsCount = commentsCount;
+        postUrl = url;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public String getAuthor() {
-        return mAuthor;
+        return author;
     }
 
     public String getSubredit() {
-        return mSubredit;
+        return subredit;
     }
 
     public long getCreationDate() {
-        return mCreationDate;
+        return creationDate;
     }
 
     public String getImage() {
-        return mImage;
+        return image;
     }
 
     public long getScore() {
-        return mScore;
+        return score;
     }
 
     public long getCommentsCount() {
-        return mCommentsCount;
+        return commentsCount;
     }
 
     public String getId() {
-        return mId;
+        return id;
     }
 
-    public String getUrl() {
-        return mUrl;
+    public String getPostUrl() {
+        return postUrl;
     }
 }

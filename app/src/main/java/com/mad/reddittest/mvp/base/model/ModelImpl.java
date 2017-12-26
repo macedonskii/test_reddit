@@ -1,7 +1,6 @@
 package com.mad.reddittest.mvp.base.model;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.mad.reddittest.App;
 import com.mad.reddittest.R;
@@ -15,7 +14,6 @@ import com.mad.reddittest.other.utils.NetworkUtils;
 import java.util.List;
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,11 +27,11 @@ import retrofit2.Response;
 public class ModelImpl implements Model {
 
     @Inject
-    ApiInterface mApi;
+    ApiInterface api;
     @Inject
-    Database mDatabase;
+    Database database;
     @Inject
-    NetworkUtils mNetworkUtils;
+    NetworkUtils networkUtils;
 
     public ModelImpl() {
         App.getAppGraph().inject(this);
@@ -41,27 +39,27 @@ public class ModelImpl implements Model {
 
     @Override
     public Single<DataContainer<List<Post>>> getPosts(@Nullable String lastElementId, boolean useCache) {
-        if (useCache && mDatabase.containData()) {
-            return Single.just(new DataContainer<>(mDatabase.getPosts(), false))
+        if (useCache && database.containData()) {
+            return Single.just(new DataContainer<>(database.getPosts()))
                     .compose(applySchedulers());
         } else {
-            return Single.just(mNetworkUtils)
+            return Single.just(networkUtils)
                     .map(NetworkUtils::isConnectedToInternet)
                     .flatMap(aBoolean -> {
                         if (!aBoolean) {
                             return Single.error(new ServerError(""));
                         }
-                        return mApi.getPosts(lastElementId, ApiInterface.LIMIT, ApiInterface.POSTS_TIME);
+                        return api.getPosts(lastElementId, ApiInterface.LIMIT, ApiInterface.POSTS_TIME);
                     })
                     .flatMap(this::errorHandler)
                     .map(new PostMapper())
                     .doOnSuccess(posts1 -> {
                         if (lastElementId == null) {
-                            mDatabase.eraseData();
+                            database.eraseData();
                         }
-                        mDatabase.addPosts(posts1);
+                        database.addPosts(posts1);
                     })
-                    .map(data -> new DataContainer<>(data, false))
+                    .map(data -> new DataContainer<>(data))
                     .onErrorReturn(throwable -> {
                         throwable.printStackTrace();
                         return new DataContainer<>(R.string.error_data_doesnt_load);

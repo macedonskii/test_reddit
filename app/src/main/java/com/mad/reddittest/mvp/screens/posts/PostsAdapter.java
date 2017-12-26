@@ -1,6 +1,5 @@
 package com.mad.reddittest.mvp.screens.posts;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.mad.reddittest.R;
 import com.mad.reddittest.databinding.ListItemPostBinding;
 import com.mad.reddittest.mvp.screens.posts.data.Post;
 import com.mad.reddittest.other.utils.DateParserUtils;
 import com.mad.reddittest.other.utils.GlideApp;
-import com.mad.reddittest.other.utils.GlideAppModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +23,11 @@ import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostHolder> {
 
-    private List<Post> mItems = new ArrayList<>();
-    private ClickListener mClickListener;
+    private List<Post> items = new ArrayList<>();
+    private ClickListener clickListener;
 
     public PostsAdapter(ClickListener clickListener) {
-        mClickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -40,26 +37,26 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostHolder> 
 
     @Override
     public void onBindViewHolder(PostHolder holder, int position) {
-        holder.bind(mItems.get(position));
+        holder.bind(items.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mItems != null ? mItems.size() : 0;
+        return items != null ? items.size() : 0;
     }
 
     public void setItems(List<Post> items) {
-        mItems = items;
+        this.items = items;
         notifyDataSetChanged();
     }
     public void addItems(@NonNull List<Post> items) {
-        int start = mItems.size();
-        mItems.addAll(items);
+        int start = this.items.size();
+        this.items.addAll(items);
         notifyItemRangeInserted(start, items.size());
     }
 
     public Post getItem(int position) {
-        return position >= mItems.size() ? null : mItems.get(position);
+        return position >= items.size() ? null : items.get(position);
     }
 
 
@@ -77,7 +74,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostHolder> 
             mBinding.tvTitle.setText(Html.fromHtml(post.getTitle()));
             mBinding.tvCommentsCount.setText(String.format("%d", post.getCommentsCount()));
             mBinding.tvScore.setText(String.format("%d", post.getScore()));
-            mBinding.vgRoot.setOnClickListener(v -> mClickListener.onClickRoot(post));
+            mBinding.vgRoot.setOnClickListener(v -> clickListener.onClickRoot(post));
             if (post.getImage() != null) {
                 GlideApp.with(mBinding.getRoot()).load(post.getImage()).centerCrop().into(mBinding.ivContent);
                 mBinding.ivContent.setVisibility(View.VISIBLE);

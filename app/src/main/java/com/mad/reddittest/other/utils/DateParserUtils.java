@@ -11,10 +11,10 @@ import com.mad.reddittest.R;
 
 public class DateParserUtils {
 
-    public static final long ONE_SECOND = 1000;
-    public static final long ONE_MINUTE = ONE_SECOND * 60;
-    public static final long ONE_HOUR = ONE_MINUTE * 60;
-    public static final long ONE_DAY = ONE_HOUR * 24;
+    private static final long ONE_SECOND = 1000;
+    private static final long ONE_MINUTE = ONE_SECOND * 60;
+    private static final long ONE_HOUR = ONE_MINUTE * 60;
+    private static final long ONE_DAY = ONE_HOUR * 24;
 
     public static String getHumanReadableDate(long timestamp, Context context) {
         timestamp = System.currentTimeMillis() - timestamp * 1000;

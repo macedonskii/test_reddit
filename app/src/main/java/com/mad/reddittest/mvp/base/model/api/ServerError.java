@@ -4,22 +4,20 @@ import retrofit2.Response;
 
 public class ServerError extends Throwable {
 
-    private String TAG_MESSAGE = "message";
-    private String TAG_CODE = "code";
-    private String mMessage;
-    private int mCode;
+    private String message;
+    private int code;
 
     public ServerError(Response response) {
-        mCode = response.code();
-        mMessage = "EMPTY MESSAGE";
+        code = response.code();
+        message = "EMPTY MESSAGE";
     }
 
     public ServerError(String message) {
-        mMessage = message;
+        this.message = message;
     }
 
     @Override
     public String getMessage() {
-        return mMessage;
+        return message;
     }
 }

@@ -9,14 +9,14 @@ import android.net.NetworkInfo;
  */
 
 public class NetworkUtils {
-    private Context mContext;
+    private Context context;
 
     public NetworkUtils(Context context) {
-        mContext = context;
+        this.context = context;
     }
 
     public boolean isConnectedToInternet(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) (mContext.getSystemService(Context.CONNECTIVITY_SERVICE));
+        ConnectivityManager connectivityManager = (ConnectivityManager) (context.getSystemService(Context.CONNECTIVITY_SERVICE));
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 
