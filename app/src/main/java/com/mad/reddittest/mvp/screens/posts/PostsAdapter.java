@@ -70,7 +70,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostHolder> 
         }
 
         public void bind(Post post) {
-            mBinding.tvTimeAndSubbredit.setText(mBinding.getRoot().getContext().getString(R.string.post_first_header,post.getAuthor(), DateParserUtils.getHumanReadableDate(post.getCreationDate(), mBinding.getRoot().getContext()), post.getSubredit()));
+            mBinding.tvTimeAndSubbredit.setText(mBinding.getRoot().getContext().getString(R.string.post_first_header_mask,post.getAuthor(), DateParserUtils.getHumanReadableDate(post.getCreationDate(), mBinding.getRoot().getContext()), post.getSubredit()));
             mBinding.tvTitle.setText(Html.fromHtml(post.getTitle()));
             mBinding.tvCommentsCount.setText(String.format("%d", post.getCommentsCount()));
             mBinding.tvScore.setText(String.format("%d", post.getScore()));

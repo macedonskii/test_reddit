@@ -17,7 +17,9 @@
         <item quantity="other">%d days ago</item>
     </plurals>
 
-    <string name="error.data.doesnt.load">Please check your internet connection, and repeat later!</string>
+    <string name="error.data.no.internet">Please check your internet connection, and repeat later!</string>
+    <string name="error.data.other">Please contact with software developer and provide him fill description about your problem!</string>
+
     <string name="app.header">reddit</string>
-    <string name="post.first.header">By %s • %s • r/%s</string>
+    <string name="post.first.header.mask">By %s • %s • r/%s</string>
 </resources>

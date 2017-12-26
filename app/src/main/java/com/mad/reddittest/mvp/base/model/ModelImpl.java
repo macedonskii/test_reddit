@@ -12,6 +12,7 @@ import com.mad.reddittest.mvp.screens.posts.data.PostMapper;
 import com.mad.reddittest.other.utils.NetworkUtils;
 
 import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Single;
@@ -47,7 +48,7 @@ public class ModelImpl implements Model {
                     .map(NetworkUtils::isConnectedToInternet)
                     .flatMap(aBoolean -> {
                         if (!aBoolean) {
-                            return Single.error(new ServerError(""));
+                            return Single.error(new ServerError(R.string.error_data_no_internet));
                         }
                         return api.getPosts(lastElementId, ApiInterface.LIMIT, ApiInterface.POSTS_TIME);
                     })
@@ -59,10 +60,13 @@ public class ModelImpl implements Model {
                         }
                         database.addPosts(posts1);
                     })
-                    .map(data -> new DataContainer<>(data))
+                    .map(DataContainer::new)
                     .onErrorReturn(throwable -> {
-                        throwable.printStackTrace();
-                        return new DataContainer<>(R.string.error_data_doesnt_load);
+                        ServerError serverError = throwable instanceof ServerError ? ((ServerError) throwable) : null;
+                        if (serverError != null) {
+                            return new DataContainer<>(serverError.getMessageId());
+                        }
+                        return new DataContainer<>(R.string.error_data_other);
                     })
                     .compose(applySchedulers());
         }

@@ -6,14 +6,18 @@ public class ServerError extends Throwable {
 
     private String message;
     private int code;
+    private int messageId;
 
     public ServerError(Response response) {
         code = response.code();
-        message = "EMPTY MESSAGE";
     }
 
-    public ServerError(String message) {
-        this.message = message;
+    public ServerError(int messageId) {
+        this.messageId = messageId;
+    }
+
+    public int getMessageId() {
+        return messageId;
     }
 
     @Override
